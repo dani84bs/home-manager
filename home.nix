@@ -1,6 +1,8 @@
 { config, pkgs, lib, ... }:
 {
-  imports = [ ./fish.nix ];
+  imports = [ ./fish.nix
+              ./kitty.nix
+  ];
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
   home.username = builtins.getEnv "USER";
@@ -28,6 +30,8 @@
     atuin
     lsd
     neovim
+    lazygit
+    delta
     kanata
     lnav
     zoxide
