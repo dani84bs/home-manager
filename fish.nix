@@ -5,8 +5,19 @@
     enable = true;
 
     interactiveShellInit = ''
+      fish_add_path --global --prepend --move \
+      "$HOME/.nix-profile/bin" \
+      "/nix/var/nix/profiles/default/bin" \
+      "/run/current-system/sw/bin" \
+      "/usr/local/bin"
+
       set fish_greeting
 
+      if test -x /opt/homebrew/bin/brew
+        eval (/opt/homebrew/bin/brew shellenv)
+      else if test -x /usr/local/bin/brew
+        eval (/usr/local/bin/brew shellenv)
+          end
       # Cleaup old variables
       if status is-interactive
           for var in (set -U | string match -r '^tide_')
