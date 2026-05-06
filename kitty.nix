@@ -56,7 +56,7 @@
       # --- Mouse & Clipboard ---
       copy_on_select      = "yes";
       focus_follows_mouse = "yes";
-      shell_integration   = "enabled";
+      shell_integration   = "no-rc";
       clipboard_control   = "write-clipboard write-primary read-clipboard read-primary";
     };
   };
