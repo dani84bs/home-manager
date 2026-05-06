@@ -16,10 +16,11 @@
 
   # The home.packages option allows you to install Nix packages into your
   # environment.
+  fonts.fontconfig.enable = true;
+
   home.packages = with pkgs; [
     git
     curl
-    fish
     ripgrep
     fd
     bat
@@ -32,6 +33,8 @@
     zoxide
     fzf
     unzip
+    nerd-fonts.fira-code
+    nerd-fonts.jetbrains-mono
   ] ++ (lib.optionals pkgs.stdenv.isLinux [
     xclip
     build-essential
