@@ -3,6 +3,7 @@
   imports = [ ./fish.nix
               ./kitty.nix
               ./tmux.nix
+              ./lsd.nix
   ];
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
@@ -30,7 +31,6 @@
     bat
     glow
     atuin
-    lsd
     neovim
     lazygit
     delta
