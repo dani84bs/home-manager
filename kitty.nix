@@ -1,10 +1,29 @@
-{ pkgs, ... }:
+{ config, pkgs, ... }:
 
+let
+  # Changed name to kitty-wrapper for consistency
+  kitty-wrapper = pkgs.writeShellScriptBin "kitty" ''
+    if command -v nixGLIntel >/dev/null 2>&1; then
+        exec nixGLIntel ${pkgs.kitty}/bin/kitty "$@"
+    elif command -v nixGLNvidia >/dev/null 2>&1; then
+        exec nixGLNvidia ${pkgs.kitty}/bin/kitty "$@"
+    elif command -v nixGL >/dev/null 2>&1; then
+        exec nixGL ${pkgs.kitty}/bin/kitty "$@"
+    else
+        exec ${pkgs.kitty}/bin/kitty "$@"
+    fi
+  '';
+in
 {
   programs.kitty = {
     enable = true;
     
-    # Il font viene gestito qui per comodità
+    # Matching the variable name here: kitty-wrapper
+    package = pkgs.symlinkJoin {
+      name = "kitty-wrapped";
+      paths = [ kitty-wrapper pkgs.kitty ];
+    };
+
     font = {
       name = "JetBrainsMono Nerd Font Mono";
       size = 16;
@@ -12,6 +31,7 @@
 
     settings = {
       shell = "${pkgs.fish}/bin/fish --login";
+      
       # --- Font & Ligatures ---
       disable_ligatures = "always";
       bold_font        = "auto";
@@ -25,22 +45,14 @@
       selection_background = "#484848";
 
       # 16 Color Palette
-      color0  = "#000000";
-      color8  = "#484848";
-      color1  = "#ff6c60";
-      color9  = "#ff6c60";
-      color2  = "#a8ff60";
-      color10 = "#a8ff60";
-      color3  = "#ffffb6";
-      color11 = "#ffffb6";
-      color4  = "#96cbfe";
-      color12 = "#96cbfe";
-      color5  = "#ff73fd";
-      color13 = "#ff73fd";
-      color6  = "#c6c5fe";
-      color14 = "#c6c5fe";
-      color7  = "#eeeeee";
-      color15 = "#ffffff";
+      color0  = "#000000"; color8  = "#484848";
+      color1  = "#ff6c60"; color9  = "#ff6c60";
+      color2  = "#a8ff60"; color10 = "#a8ff60";
+      color3  = "#ffffb6"; color11 = "#ffffb6";
+      color4  = "#96cbfe"; color12 = "#96cbfe";
+      color5  = "#ff73fd"; color13 = "#ff73fd";
+      color6  = "#c6c5fe"; color14 = "#c6c5fe";
+      color7  = "#eeeeee"; color15 = "#ffffff";
 
       # --- Appearance ---
       background_opacity      = "1.0";
@@ -60,4 +72,5 @@
       clipboard_control   = "write-clipboard write-primary read-clipboard read-primary";
     };
   };
+
 }
