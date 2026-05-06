@@ -11,9 +11,9 @@ in
     vimAlias = true;
     sideloadInitLua = true;
     withRuby = false;
-    withPython3 = true;
+    withPython3 = false;
     extraPackages = with pkgs; [
-      gcc gnumake unzip ripgrep fd
+      gcc gnumake unzip ripgrep fd nodejs python3
     ];
   };
 
