@@ -4,6 +4,7 @@
               ./kitty.nix
               ./tmux.nix
               ./lsd.nix
+              ./atuin.nix
   ];
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
@@ -30,7 +31,6 @@
     fd
     bat
     glow
-    atuin
     neovim
     lazygit
     delta
