@@ -75,6 +75,7 @@ in
 
     # Raw configuration appended to the end of tmux.conf
     extraConfig = ''
+      set -g default-shell $SHELL
       # -----------------------------------------------------------------------------
       # Prefix Configuration
       # -----------------------------------------------------------------------------

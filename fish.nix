@@ -11,6 +11,7 @@
       "/run/current-system/sw/bin" \
       "/usr/local/bin"
 
+      set -gx SHELL (which fish)
       set fish_greeting
 
       if test -x /opt/homebrew/bin/brew
