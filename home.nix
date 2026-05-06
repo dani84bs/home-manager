@@ -2,6 +2,7 @@
 {
   imports = [ ./fish.nix
               ./kitty.nix
+              ./tmux.nix
   ];
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
@@ -23,6 +24,7 @@
   home.packages = with pkgs; [
     git
     curl
+    fzf
     ripgrep
     fd
     bat
