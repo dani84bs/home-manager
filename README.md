@@ -34,3 +34,12 @@ nix --extra-experimental-features "nix-command flakes" profile install --impure 
 ```bash
 home-manager switch
 ```
+
+## Upgrades
+
+In order to perform an upgrade use the following commands:
+
+```bash
+nix-channel --update
+home-manager switch
+```
