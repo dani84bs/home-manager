@@ -35,6 +35,7 @@
     ripgrep
     fd
     bat
+    btop
     glow
     delta
     kanata
