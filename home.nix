@@ -6,6 +6,7 @@
               ./lsd.nix
               ./atuin.nix
               ./nvim.nix
+              ./lazygit.nix
   ];
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
@@ -35,7 +36,6 @@
     fd
     bat
     glow
-    lazygit
     delta
     kanata
     lnav
@@ -44,6 +44,7 @@
     unzip
     nerd-fonts.fira-code
     nerd-fonts.jetbrains-mono
+    statix
     stdenv.cc
     uv
   ] ++ (lib.optionals pkgs.stdenv.isLinux [
