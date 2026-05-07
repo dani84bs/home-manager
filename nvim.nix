@@ -18,11 +18,16 @@ in
       setuptools
     ];
     extraPackages = with pkgs; [
-      gcc gnumake unzip ripgrep fd nodejs
+      gcc
+      gnumake
+      unzip
+      ripgrep
+      fd
+      nodejs
     ];
   };
 
-  home.packages = [pkgs.python3];
+  home.packages = [ pkgs.python3 ];
 
   xdg.configFile."nvim".source = config.lib.file.mkOutOfStoreSymlink nvimConfigPath;
 }

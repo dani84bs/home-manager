@@ -47,11 +47,16 @@
     nerd-fonts.jetbrains-mono
     statix
     stdenv.cc
+    rustup
+    libiconv
     uv
   ] ++ (lib.optionals pkgs.stdenv.isLinux [
     xclip
   ]);
 
+  home.sessionVariables = {
+    RUSTFLAGS = "-L ${pkgs.libiconv}/lib";
+  };
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
   # plain files is through 'home.file'.
@@ -84,9 +89,6 @@
   #
   #  /etc/profiles/per-user/dani/etc/profile.d/hm-session-vars.sh
   #
-  home.sessionVariables = {
-    # EDITOR = "emacs";
-  };
 
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
