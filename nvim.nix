@@ -11,11 +11,18 @@ in
     vimAlias = true;
     sideloadInitLua = true;
     withRuby = false;
-    withPython3 = false;
+    withPython3 = true;
+    extraPython3Packages = ps: with ps; [
+      pynvim
+      pip
+      setuptools
+    ];
     extraPackages = with pkgs; [
-      gcc gnumake unzip ripgrep fd nodejs python3
+      gcc gnumake unzip ripgrep fd nodejs
     ];
   };
+
+  home.packages = [pkgs.python3];
 
   xdg.configFile."nvim".source = config.lib.file.mkOutOfStoreSymlink nvimConfigPath;
 }
