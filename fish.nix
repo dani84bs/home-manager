@@ -84,7 +84,7 @@
       set -g tide_left_prompt_suffix \ue0b0
 
       # Right Prompt
-      set -g tide_right_prompt_frame_enabled true
+      set -g tide_right_prompt_frame_enabled false
       set -g tide_right_prompt_items status cmd_duration context jobs direnv node python rustc java php pulumi ruby go gcloud kubectl distrobox toolbox terraform aws nix_shell crystal elixir zig
       set -g tide_right_prompt_prefix \ue0b2
       set -g tide_right_prompt_separator_diff_color \ue0b2
