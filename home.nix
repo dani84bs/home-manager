@@ -45,6 +45,7 @@
     nerd-fonts.fira-code
     nerd-fonts.jetbrains-mono
     stdenv.cc
+    uv
   ] ++ (lib.optionals pkgs.stdenv.isLinux [
     xclip
   ]);
