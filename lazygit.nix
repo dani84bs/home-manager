@@ -1,25 +1,23 @@
-
 { pkgs, ... }:
 
 {
   programs.lazygit = {
     enable = true;
+
+    # --- UI and Editor Settings ---
     settings = {
+      # Use Nerd Fonts version 3 for icons
       ui.nerdFontsVersion = 3;
+
+      # Use Neovim as the default editor preset
       os.editPreset = "nvim";
+
+      # --- Git Pager Configuration ---
+      # Configure 'delta' for a more readable and colored diff experience
       git.pagers = [
-        {colorArg = "always";}
-        {pager = "delta --dark --paging=never";}
+        { colorArg = "always"; }
+        { pager = "delta --dark --paging=never"; }
       ];
     };
-
-   # 1 │ ui:
-   # 2 │   nerdFontsVersion: "3"
-   # 3 │ os:
-   # 4 │   editPreset: "vscode"
-   # 5 │ git:
-   # 6 │   pagers:
-   # 7 │     - colorArg: always
-   # 8 │       pager: delta --dark --paging=never
   };
 }

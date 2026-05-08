@@ -2,7 +2,7 @@
 
 let
   # Fallback builder for plugins missing from the current Nix channel.
-  # Includes the chmod fix to prevent exit code 127.
+  # Includes a chmod fix to prevent exit code 127 during plugin execution.
   buildTmuxPlugin = name: owner: repo: rev: hash: pkgs.tmuxPlugins.mkTmuxPlugin {
     pluginName = name;
     version = "unstable-latest";
@@ -14,56 +14,39 @@ let
     '';
   };
 
-  # -----------------------------------------------------------------------------
-  # Manual Fallback Plugins
-  # Define here ONLY the plugins that throw "undefined variable" errors.
-  # Replace lib.fakeHash with the actual hash Nix provides on the first failed run.
-  # -----------------------------------------------------------------------------
-  tmuxCowboy      = buildTmuxPlugin "cowboy" "tmux-plugins" "tmux-cowboy" "master" "sha256-KJNsdDLqT2Uzc25U4GLSB2O1SA/PThmDj9Aej5XjmJs=";
+  # --- Manual Fallback Plugins ---
+  # Define plugins here if they are not available in the standard nixpkgs tmuxPlugins.
+  tmuxCowboy = buildTmuxPlugin "cowboy" "tmux-plugins" "tmux-cowboy" "master" "sha256-KJNsdDLqT2Uzc25U4GLSB2O1SA/PThmDj9Aej5XjmJs=";
   tmuxPainControl = buildTmuxPlugin "pain-control" "tmux-plugins" "tmux-pain-control" "master" "sha256-2VI9w7Naj9OHF3iuV63Ij4QcYhbrtngyJ3GpeyzIKxs=";
-  
-  # Example: If session-wizard or minimal-status fail, uncomment and build them here
-  # tmuxSessionWizard = buildTmuxPlugin "session-wizard" "27medkamal" "tmux-session-wizard" "master" lib.fakeHash;
-  # minimalTmuxStatus = buildTmuxPlugin "minimal-status" "niksingh710" "minimal-tmux-status" "master" lib.fakeHash;
 
 in
 {
   programs.tmux = {
     enable = true;
-    
-    # Base options
+
+    # --- Base Options ---
     keyMode = "vi";
     historyLimit = 100000;
     mouse = true;
-    
+
     plugins = with pkgs.tmuxPlugins; [
-      # -------------------------------------------------------------------------
-      # 1. Community Plugins
-      # These are maintained by Nix. No hashes or updates required.
-      # Move plugins here if they become available in your channel.
-      # -------------------------------------------------------------------------
+      # 1. Community Plugins (Maintained by Nix)
       open
       fzf-tmux-url
 
-      # -------------------------------------------------------------------------
-      # 2. Manual Plugins
-      # Injected from the custom derivations defined in the 'let' block above.
-      # -------------------------------------------------------------------------
+      # 2. Manual Plugins (Custom derivations defined above)
       tmuxCowboy
       tmuxPainControl
 
-      # -------------------------------------------------------------------------
       # 3. Plugins with Extra Configuration
-      # Mix and match community or manual plugins here as needed.
-      # -------------------------------------------------------------------------
       {
-        plugin = session-wizard; # Change to tmuxSessionWizard if community version fails
+        plugin = session-wizard;
         extraConfig = ''
           set -g @session-wizard 'T'
         '';
       }
       {
-        plugin = minimal-tmux-status; # Change to minimalTmuxStatus if community version fails
+        plugin = minimal-tmux-status;
         extraConfig = ''
           set -g @minimal-tmux-justify "left"
           set -g @minimal-tmux-indicator false
@@ -73,47 +56,42 @@ in
       }
     ];
 
-    # Raw configuration appended to the end of tmux.conf
+    # --- Raw Configuration (Append to tmux.conf) ---
     extraConfig = ''
       set -g default-shell $SHELL
-      # -----------------------------------------------------------------------------
-      # Prefix Configuration
-      # -----------------------------------------------------------------------------
+
+      # --- Prefix Configuration ---
+      # Unbind default Ctrl-b and use semicolon (;) as prefix
       unbind-key C-b
       set -g prefix ";"
       bind-key ";" send-prefix
 
-      # -----------------------------------------------------------------------------
-      # General Settings
-      # -----------------------------------------------------------------------------
+      # --- General Settings ---
       set -g visual-silence off
       set -g status-interval 1
       set -g display-time 1500
       set -g display-panes-time 10000
       set -g renumber-windows on
 
-      # Enable hyperlink features
+      # Enable terminal hyperlink features
       set -sa terminal-features ",*:hyperlinks" 
 
-      # -----------------------------------------------------------------------------
-      # OS-Specific Clipboard Integration
-      # -----------------------------------------------------------------------------
+      # --- OS-Specific Clipboard Integration ---
+      # Automatically detects if running on macOS or Linux
       ${if pkgs.stdenv.isDarwin then ''
         set -s copy-command 'pbcopy'
       '' else ''
         set -s copy-command '${pkgs.xclip}/bin/xclip -i -sel clipboard'
       ''}
 
-      # -----------------------------------------------------------------------------
-      # Session Management & Keybinds
-      # -----------------------------------------------------------------------------
-      # Reload configuration shortcut
+      # --- Session Management & Keybinds ---
+      # Quick configuration reload
       bind r source-file ~/.config/tmux/tmux.conf \; display-message "Config reloaded..."
 
-      # Avoid passing to another session on destroy
+      # Avoid passing control to another session when current one is destroyed
       set -g detach-on-destroy on
 
-      # Always keep the default session alive
+      # Hooks to ensure the 'default' session always stays alive
       set-hook -g session-created 'if-shell -F "#{==:#{session_name},default}" { new-window -d -t default }'
       set-hook -g window-unlinked 'if-shell -F "#{==:#{session_name},default}" { if-shell -F "#{==:#{session_windows},1}" { new-window } }'
     '';

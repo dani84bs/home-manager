@@ -3,26 +3,37 @@
 {
   programs.atuin = {
     enable = true;
+
+    # Disable default integrations as they are handled manually in fish.nix
     enableFishIntegration = false;
     enableZshIntegration = false;
-    
+
+    # --- General Settings ---
     settings = {
       filter_mode = "global";
       filter_mode_shell_up_key_binding = "session";
       invert = false;
       enter_accept = true;
+
+      # UI Performance and Motion
       prefers_reduced_motion = true;
       NO_MOTION = true;
+
+      # Sync settings
       sync = {
         records = true;
       };
+
+      # Custom theme selection
       theme = {
         name = "catppuccin-mocha-green";
       };
     };
   };
 
-  # Create the theme file in the expected directory
+  # --- Custom Theme Definition ---
+  # Create the theme file in the expected Atuin configuration directory.
+  # This uses the catppuccin-mocha palette with green highlights.
   xdg.configFile."atuin/themes/catppuccin-mocha-green.toml".text = ''
     [theme]
     name = "catppuccin-mocha-green"
