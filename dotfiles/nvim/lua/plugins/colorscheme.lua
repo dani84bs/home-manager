@@ -1,7 +1,8 @@
 return {
   -- add gruvbox
   { "ellisonleao/gruvbox.nvim", lazy = true, opts = {
-    dim_inactive = true,
+    dim_inactive = false,
+    transparent_mode = true,
   } },
 
   -- configure catpuccin
