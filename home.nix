@@ -34,8 +34,6 @@
     lnav
     zoxide
     unzip
-    nerd-fonts.fira-code
-    nerd-fonts.jetbrains-mono
     statix
     stdenv.cc
     rustup

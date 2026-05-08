@@ -16,6 +16,11 @@ let
   '';
 in
 {
+  home.packages = with pkgs; [
+    nerd-fonts.fira-code
+    nerd-fonts.jetbrains-mono
+  ];
+
   programs.kitty = {
     enable = true;
 
