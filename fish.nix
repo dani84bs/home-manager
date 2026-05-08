@@ -46,6 +46,7 @@
       cat = "bat";
       hms = "home-manager switch --flake ~/.config/home-manager#${profile} --impure";
       hmu = "nix flake update --flake ~/.config/home-manager && home-manager switch --flake ~/.config/home-manager#${profile} --impure";
+      hmn = "home-manager news --flake ~/.config/home-manager#${profile} --impure";
     };
 
     # --- Fish Plugins ---
