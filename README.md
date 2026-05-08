@@ -22,7 +22,7 @@ If you haven't installed Nix yet, the recommended way is using the Determinate
 Systems installer:
 
 ```bash
-curl --proto '=https' --tlsv1.2 -sSf -L <https://install.determinate.systems/nix> | sh -s -- install
+curl --proto '=https' --tlsv1.2 -sSf -L https://install.determinate.systems/nix | sh -s -- install
 ```
 
 Alternatively, use the official multi-user installation:
@@ -32,8 +32,9 @@ sh <(curl -L <https://nixos.org/nix/install>) --daemon
 ```
 
 **Enable Flakes:**
-Ensure that Nix Flakes are enabled by adding the following to your
-`/etc/nix/nix.conf` (or `~/.config/nix/nix.conf`):
+If you choose the official multi-uer installaton ensure that Nix Flakes are
+enabled by adding the following to your `/etc/nix/nix.conf` (or
+`~/.config/nix/nix.conf`):
 
 ```
 experimental-features = nix-command flakes
@@ -46,7 +47,7 @@ distribution and need hardware acceleration for GUI apps, install nixGL
 manually:
 
 ```bash
-nix profile install github:nix-community/nixGL
+nix profile add --impure github:nix-community/nixGL
 ```
 
 ### 2. Installation
@@ -55,7 +56,7 @@ Clone this repository directly into your Home Manager configuration directory:
 
 ```bash
 mkdir -p ~/.config/home-manager
-git clone <https://github.com/dani84bs/home-manager.git> ~/.config/home-manager
+git clone https://github.com/dani84bs/home-manager.git ~/.config/home-manager
 cd ~/.config/home-manager
 ```
 
@@ -67,10 +68,16 @@ Choose the layer that fits your current machine.
 and $HOME dynamically via builtins.getEnv.
 
 **For a Server / CLI-only environment:**
-home-manager switch --flake .#core --impure
+
+```bash
+nix run -- home-manager switch --flake .#core --impure
+```
 
 **For a Desktop environment (Linux or macOS):**
-home-manager switch --flake .#gui --impure
+
+```bash
+nix run -- home-manager switch --flake .#gui --impure
+```
 
 ## 🔄 Daily Workflow
 
