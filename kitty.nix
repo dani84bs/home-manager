@@ -29,7 +29,10 @@ in
       name = "kitty-wrapped";
       paths = [ kitty-wrapper pkgs.kitty ];
     };
-
+    themeFile = "GitHub_Dark";
+    # autoThemeFiles.dark = "Gruvbox Dark Hard";
+    # autoThemeFiles.light = "GruvboxMaterialLightHard";
+    # autoThemeFiles.noPreference = "GruvboxMaterialDarkHard";
     # --- Font Configuration ---
     font = {
       name = "JetBrainsMono Nerd Font Mono";
@@ -47,28 +50,28 @@ in
       bold_italic_font = "auto";
 
       # --- Theme: Ir Black ---
-      foreground = "#fdfbee";
-      background = "#000000";
-      selection_foreground = "#fdfbee";
-      selection_background = "#484848";
+      # foreground = "#fdfbee";
+      # background = "#000000";
+      # selection_foreground = "#fdfbee";
+      # selection_background = "#484848";
 
       # 16 Color Palette
-      color0 = "#000000";
-      color8 = "#484848";
-      color1 = "#ff6c60";
-      color9 = "#ff6c60";
-      color2 = "#a8ff60";
-      color10 = "#a8ff60";
-      color3 = "#ffffb6";
-      color11 = "#ffffb6";
-      color4 = "#96cbfe";
-      color12 = "#96cbfe";
-      color5 = "#ff73fd";
-      color13 = "#ff73fd";
-      color6 = "#c6c5fe";
-      color14 = "#c6c5fe";
-      color7 = "#eeeeee";
-      color15 = "#ffffff";
+      # color0 = "#000000";
+      # color8 = "#484848";
+      # color1 = "#ff6c60";
+      # color9 = "#ff6c60";
+      # color2 = "#a8ff60";
+      # color10 = "#a8ff60";
+      # color3 = "#ffffb6";
+      # color11 = "#ffffb6";
+      # color4 = "#96cbfe";
+      # color12 = "#96cbfe";
+      # color5 = "#ff73fd";
+      # color13 = "#ff73fd";
+      # color6 = "#c6c5fe";
+      # color14 = "#c6c5fe";
+      # color7 = "#eeeeee";
+      # color15 = "#ffffff";
 
       # --- Window Appearance ---
       background_opacity = "1.0";
