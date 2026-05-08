@@ -97,8 +97,8 @@ home-manager switch --flake .#gui --impure
 
 Once Fish is configured, you can use these shortcuts:
 
-- `hms`: `home-manager switch --flake ~/.config/home-manager#core --impure`
-- `hms-gui`: `home-manager switch --flake ~/.config/home-manager#gui --impure`
+- `hms`: to rebuild the system.
+- hms-gui: to upgrade and rebuild the system.
 
 ## 🛠 Troubleshooting
 

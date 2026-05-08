@@ -13,8 +13,7 @@
 
   outputs = { self, nixpkgs, home-manager, ... }:
     let
-      # Automatically detect the system architecture (e.g., x86_64-linux, aarch64-darwin)
-      # This requires the --impure flag during switch
+      # Automatically detect the system architecture
       system = builtins.currentSystem;
       pkgs = nixpkgs.legacyPackages.${system};
 
@@ -28,20 +27,22 @@
         ./nvim.nix
         ./lazygit.nix
       ];
+
+      # Helper function to inject the profile name into the modules
+      mkConfig = profileName: extraModules: home-manager.lib.homeManagerConfiguration {
+        inherit pkgs;
+        # This passes the 'profile' variable to fish.nix, home.nix, etc.
+        extraSpecialArgs = { profile = profileName; };
+        modules = baseModules ++ extraModules;
+      };
     in
     {
       homeConfigurations = {
-        # CORE LAYER: Terminal-only environment (perfect for SSH)
-        core = home-manager.lib.homeManagerConfiguration {
-          inherit pkgs;
-          modules = baseModules;
-        };
+        # CORE LAYER: Terminal-only environment
+        core = mkConfig "core" [ ];
 
-        # GUI LAYER: Full environment including Kitty and graphical tweaks
-        gui = home-manager.lib.homeManagerConfiguration {
-          inherit pkgs;
-          modules = baseModules ++ [ ./kitty.nix ];
-        };
+        # GUI LAYER: Full environment including Kitty
+        gui = mkConfig "gui" [ ./kitty.nix ];
       };
     };
 }

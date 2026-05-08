@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, profile, ... }:
 
 {
   programs.fish = {
@@ -44,8 +44,8 @@
       glow = "glow -p";
       tmux = "tmux new -A -s default";
       cat = "bat";
-      hms = "home-manager switch --flake ~/.config/home-manager#core --impure";
-      hms-gui = "home-manager switch --flake ~/.config/home-manager#gui --impure";
+      hms = "home-manager switch --flake ~/.config/home-manager#${profile} --impure";
+      hmu = "nix flake update ~/.config/home-manager && home-manager switch --flake ~/.config/home-manager#${profile} --impure";
     };
 
     # --- Fish Plugins ---
