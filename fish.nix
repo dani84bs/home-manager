@@ -44,6 +44,8 @@
       glow = "glow -p";
       tmux = "tmux new -A -s default";
       cat = "bat";
+      hms = "home-manager switch --flake ~/.config/home-manager#core --impure";
+      hms-gui = "home-manager switch --flake ~/.config/home-manager#gui --impure";
     };
 
     # --- Fish Plugins ---
