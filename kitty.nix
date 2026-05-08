@@ -87,5 +87,8 @@ in
       shell_integration = "no-rc";
       clipboard_control = "write-clipboard write-primary read-clipboard read-primary";
     };
+    extraConfig = ''
+      include kitty_override.conf
+    '';
   };
 }
