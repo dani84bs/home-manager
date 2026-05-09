@@ -5,13 +5,13 @@ let
   # It checks for nixGL (Intel, Nvidia, or generic) before launching Kitty.
   kitty-wrapper = pkgs.writeShellScriptBin "kitty" ''
     if command -v nixGLIntel >/dev/null 2>&1; then
-        exec nixGLIntel ${pkgs.kitty}/bin/kitty "$@"
+        exec nixGLIntel LIBGL_ALWAYS_SOFTWARE=1 ${pkgs.kitty}/bin/kitty "$@"
     elif command -v nixGLNvidia >/dev/null 2>&1; then
-        exec nixGLNvidia ${pkgs.kitty}/bin/kitty "$@"
+        exec LIBGL_ALWAYS_SOFTWARE=1 nixGLNvidia ${pkgs.kitty}/bin/kitty "$@"
     elif command -v nixGL >/dev/null 2>&1; then
-        exec nixGL ${pkgs.kitty}/bin/kitty "$@"
+        exec LIBGL_ALWAYS_SOFTWARE=1 nixGL ${pkgs.kitty}/bin/kitty "$@"
     else
-        exec ${pkgs.kitty}/bin/kitty "$@"
+        exec LIBGL_ALWAYS_SOFTWARE=1 ${pkgs.kitty}/bin/kitty "$@"
     fi
   '';
 in
