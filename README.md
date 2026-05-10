@@ -47,7 +47,7 @@ distribution and need hardware acceleration for GUI apps, install nixGL
 manually:
 
 ```bash
-nix profile add --impure github:nix-community/nixGL
+nix profile add --impure github:nix-community/nixGL#nixGLDefault
 ```
 
 ### 2. Installation

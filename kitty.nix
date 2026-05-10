@@ -3,6 +3,7 @@
 let
   # Kitty wrapper to ensure hardware acceleration works correctly on non-NixOS Linux.
   # It checks for nixGL (Intel, Nvidia, or generic) before launching Kitty.
+  # It forces LIBGL_ALWAYS_SOFTWARE to prevent an issue with parallels drivers.
   kitty-wrapper = pkgs.writeShellScriptBin "kitty" ''
     if command -v nixGLIntel >/dev/null 2>&1; then
         LIBGL_ALWAYS_SOFTWARE=1 exec nixGLIntel ${pkgs.kitty}/bin/kitty "$@"
