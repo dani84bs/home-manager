@@ -89,7 +89,7 @@ in
       bind r source-file ~/.config/tmux/tmux.conf \; display-message "Config reloaded..."
 
       # Avoid passing control to another session when current one is destroyed
-      set -g detach-on-destroy on
+      set -g detach-on-destroy off
 
       # Hooks to ensure the 'default' session always stays alive
       set-hook -g session-created 'if-shell -F "#{==:#{session_name},default}" { new-window -d -t default }'
