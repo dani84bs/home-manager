@@ -44,6 +44,7 @@
       glow = "glow -p";
       tmux = "tmux new -A -s default";
       cat = "bat";
+      docker = "podman";
       hms = "home-manager switch --flake ~/.config/home-manager#${profile} --impure";
       hmu = "nix flake update --flake ~/.config/home-manager && home-manager switch --flake ~/.config/home-manager#${profile} --impure";
       hmn = "home-manager news --flake ~/.config/home-manager#${profile} --impure";
